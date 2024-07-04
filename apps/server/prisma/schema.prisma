@@ -12,3 +12,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum ROLE {
+  admin
+  customer
+  store_owner
+}
+
+model user {
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(60)
+  address  String   @db.VarChar(400)
+  email    String   @db.VarChar()
+  password String   @db.VarChar()
+  role     ROLE
+  rating   rating[] @relation("ratedBy")
+}
+
+model store {
+  id      Int      @id @default(autoincrement())
+  name    String   @db.VarChar(60)
+  address String   @db.VarChar(400)
+  rating  rating[] @relation("storerating")
+}
+
+model rating {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  user    user  @relation("ratedBy", fields: [userId], references: [id])
+  storeId Int
+  store   store @relation("storerating", fields: [storeId], references: [id])
+  rating  Int
+}
