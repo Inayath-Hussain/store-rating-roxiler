@@ -27,10 +27,13 @@ model user {
   password String   @db.VarChar()
   role     ROLE
   rating   rating[] @relation("ratedBy")
+  store    store[]  @relation("storeowner")
 }
 
 model store {
   id      Int      @id @default(autoincrement())
+  ownerId Int
+  owner   user     @relation("storeowner", fields: [ownerId], references: [id])
   name    String   @db.VarChar(60)
   address String   @db.VarChar(400)
   rating  rating[] @relation("storerating")

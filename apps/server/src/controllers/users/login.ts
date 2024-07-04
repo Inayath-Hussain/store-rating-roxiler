@@ -20,8 +20,8 @@ const controller: RequestHandler<{}, {}, ILoginBody> = async (req, res, next) =>
 
     if (passwordMatches === false) return res.status(400).json({ message: "email and password donot match" });
 
-    const accessToken = await createAccessToken({ email });
-    const refreshToken = await createRefreshToken({ email });
+    const accessToken = await createAccessToken({ userId: user.id });
+    const refreshToken = await createRefreshToken({ userId: user.id });
 
     signAccessTokenCookie(res, accessToken);
     signRefreshTokenCookie(res, refreshToken);

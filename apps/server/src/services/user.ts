@@ -20,6 +20,13 @@ class UserService {
             data: { ...data, password: hashedPassword }
         })
     }
+
+
+    async getUserById(id: number) {
+        return await prismaClient.user.findUnique({
+            where: { id }
+        })
+    }
 }
 
 

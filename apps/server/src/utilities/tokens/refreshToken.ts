@@ -55,7 +55,7 @@ export const verifyRefreshToken = async (token: string): Promise<IVerifyReturn> 
 interface RenewValid {
     refreshToken: string
     valid: true
-    email: string
+    userId: number
     newToken: boolean
 }
 
@@ -87,18 +87,18 @@ export const renewRefreshToken = async (refreshToken: string): Promise<RenewRetu
     if (result.valid) {
         const { payload } = result
 
-        if (!payload.iat || !payload.email) return { refreshToken, valid: false }
+        if (!payload.iat || !payload.userId) return { refreshToken, valid: false }
 
         // check creation date
         // renew if issue date is older than 1 day.
         if (_olderThanOneDay(payload.iat)) {
-            finalRefreshToken = await createRefreshToken({ email: payload.email })
+            finalRefreshToken = await createRefreshToken({ userId: payload.userId })
             newToken = true
         }
 
 
         // return token and valid state
-        return { refreshToken: finalRefreshToken, valid: true, email: payload.email, newToken }
+        return { refreshToken: finalRefreshToken, valid: true, userId: payload.userId, newToken }
     }
 
     // return token and invalid state

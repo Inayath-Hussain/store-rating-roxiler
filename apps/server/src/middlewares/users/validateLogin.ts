@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 
 import { sanitizeAll } from "../sanitizeBase";
 import { BodyError, containsErrors } from "../error";
-import { validateEmail, validatePassword } from "./validate";
+import { validateEmail, validatePassword } from "../validate";
 
 
 export interface ILoginBody {

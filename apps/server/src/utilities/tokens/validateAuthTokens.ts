@@ -7,7 +7,7 @@ interface ValidResult {
     accessToken: string
     refreshToken: string
     valid: true
-    email: string
+    userId: number
     newTokens: ("accessToken" | "refreshToken")[]
 }
 
@@ -53,7 +53,7 @@ export const validateAuthTokens = async (accessToken: string, refreshToken: stri
             if (renewedResult.newToken) newTokens.push("refreshToken")
 
             // if both tokens are valid then send valid object
-            return { accessToken, refreshToken: finalRefreshToken, valid: true, email: accessTokenStatus.payload.email, newTokens }
+            return { accessToken, refreshToken: finalRefreshToken, valid: true, userId: accessTokenStatus.payload.userId, newTokens }
         }
     }
 
@@ -69,11 +69,11 @@ export const validateAuthTokens = async (accessToken: string, refreshToken: stri
             finalRefreshToken = result.refreshToken
             if (result.newToken) newTokens.push("refreshToken")
 
-            const { email: username } = result
-            finalAccessToken = await createAccessToken({ email: username })
+            const { userId: username } = result
+            finalAccessToken = await createAccessToken({ userId: username })
             newTokens.push("accessToken")
 
-            return { accessToken: finalAccessToken, refreshToken: finalRefreshToken, valid: true, email: result.email, newTokens }
+            return { accessToken: finalAccessToken, refreshToken: finalRefreshToken, valid: true, userId: result.userId, newTokens }
         }
     }
 

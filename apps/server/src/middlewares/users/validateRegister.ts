@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { sanitizeAll } from "../sanitizeBase";
 import { BodyError, containsErrors } from "../error";
-import { validateAddress, validateEmail, validateName, validateNewPassword } from "./validate";
+import { validateAddress, validateEmail, validateName, validateNewPassword } from "../validate";
 
 export interface IRegisterBody {
     name: string

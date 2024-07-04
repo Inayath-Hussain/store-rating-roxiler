@@ -17,11 +17,13 @@ const controller: RequestHandler<{}, {}, IRegisterBody> = async (req, res, next)
 
     const user = await userService.createUser({ address, email, name, password, role: "store_owner" })
 
-    const accessToken = await createAccessToken({ email });
-    const refreshToken = await createRefreshToken({ email });
+    const accessToken = await createAccessToken({ userId: user.id });
+    const refreshToken = await createRefreshToken({ userId: user.id });
 
     signAccessTokenCookie(res, accessToken);
     signRefreshTokenCookie(res, refreshToken);
+
+    res.cookie("store_owner", true)
 
     return res.status(201).json({ message: "success" })
 }
