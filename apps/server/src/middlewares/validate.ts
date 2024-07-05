@@ -11,6 +11,9 @@ interface InValid {
 
 export const validateEmail = (value: any): Valid | InValid => {
     switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "email is required" }
+
         case (typeof value !== "string"):
             return { valid: false, errorMessage: "email should be of type string" }
 
@@ -27,6 +30,9 @@ export const validateEmail = (value: any): Valid | InValid => {
 
 export const validatePassword = (value: any): Valid | InValid => {
     switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "password is required" }
+
         case (typeof value !== "string"):
             return { valid: false, errorMessage: "password should be of type string" }
 
@@ -39,6 +45,9 @@ export const validatePassword = (value: any): Valid | InValid => {
 
 export const validateName = (value: any): Valid | InValid => {
     switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "name is required" }
+
         case (typeof value !== "string"):
             return { valid: false, errorMessage: "name should be of type string" }
 
@@ -59,6 +68,9 @@ export const validateName = (value: any): Valid | InValid => {
 
 export const validateAddress = (value: any): Valid | InValid => {
     switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "address is required" }
+
         case (typeof value !== "string"):
             return { valid: false, errorMessage: "address should be of type string" }
 
@@ -74,6 +86,9 @@ export const validateAddress = (value: any): Valid | InValid => {
 
 export const validateNewPassword = (value: any): Valid | InValid => {
     switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "password is required" }
+
         case (typeof value !== "string"):
             return { valid: false, errorMessage: "password should be of type string" }
 
@@ -85,6 +100,25 @@ export const validateNewPassword = (value: any): Valid | InValid => {
 
         case (isStrongPassword(value, { minUppercase: 1, minSymbols: 1 })):
             return { valid: false, errorMessage: "password should have atleast 1 Uppercase, and 1 special symbol" }
+
+        default:
+            return { valid: true }
+    }
+}
+
+
+
+
+export const validateRating = (value: any): Valid | InValid => {
+    switch (true) {
+        case (!value):
+            return { valid: false, errorMessage: "rating is required" }
+
+        case (typeof value !== "number"):
+            return { valid: false, errorMessage: "rating is required" }
+
+        case (value < 1 || value > 5):
+            return { valid: false, errorMessage: "rating should be between 1 to 5" }
 
         default:
             return { valid: true }

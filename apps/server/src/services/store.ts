@@ -7,6 +7,30 @@ class StoreService {
             data
         })
     }
+
+
+    async getStoreById(storeId: number) {
+        return await prismaClient.store.findUnique({
+            where: { id: storeId }
+        })
+    }
+
+
+    async getStoreRatings(storeId: number) {
+        // prismaClient.rating.findMany({
+        //     where: {storeId},
+        //     include: {}
+        // })
+        return await prismaClient.store.findUnique({
+            where: { id: storeId },
+            include: {
+                rating: {
+                    select: { rating: true, storeId: false, userId: false, user: { select: { name: true } } },
+                    // include: { user: { select: { name: true } } }
+                }
+            }
+        })
+    }
 }
 
 
