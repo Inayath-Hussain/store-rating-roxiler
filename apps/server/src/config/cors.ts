@@ -5,7 +5,7 @@ import { env } from "./env"
 export const corsOptions: CorsOptions = env.isProd ?
     {
         // add react deployed origin here.
-        origin: [],
+        origin: ["https://store-rating-roxiler.vercel.app"],
         credentials: true
     }
     :
