@@ -5,10 +5,12 @@ import { authMiddleware } from "../middlewares/auth/authMiddleware";
 import { getStoreRatings } from "../controllers/store/getRatings";
 import { validateAddRating } from "../middlewares/store/validateAddRating";
 import { addRating } from "../controllers/store/addRating";
+import { getStores } from "../controllers/store/getStores";
 
 const router = Router();
 
 
+router.get("/", getStores);
 router.post("/", authMiddleware, validateAddStore, addStore);
 router.get("/:storeId/ratings", authMiddleware, getStoreRatings);
 router.post("/:storeId/ratings", authMiddleware, validateAddRating, addRating);
